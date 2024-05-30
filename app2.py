@@ -91,11 +91,16 @@ def draw_wordcloud(df):
     plt.imshow(word_cloud)
     plt.axis("off")
     plt.title(f'Word Cloud')
-    plt.savefig(f'static/wordcloud.png')
+    plt.savefig(f'wordcloud.png')
     plt.close()
 
-    return f'static/wordcloud.png'
-
+    return f'wordcloud.png'
+# Sample posts
+def get_sample_posts(df):
+  pos_posts = df[df['sentiment']=='POS'].sample(3)
+  neg_posts = df[df['sentiment']=='NEG'].sample(3)
+  neu_posts = df[df['sentiment']=='NEU'].sample(3)
+  return pos_posts, neg_posts, neu_posts
 #Streamlit app
 st.title("Social Media Sentiment Analysis")
 st.write("Analyze the sentiment of Reddit posts based on a given keyword.")
@@ -105,8 +110,17 @@ subreddit = st.text_input('Enter a subreddit (optional):','all')
 if st.button('Search'):
     with st.spinner('Fetching and analyzing data...'):
         df, pie_chart_path = draw_plot_for_keyword(keyword,subreddit)
-        #wordcloud_path = draw_wordcloud(df)
+        wordcloud_path = draw_wordcloud(df)
         st.image(pie_chart_path)
-        st.success('Pie chart complete!')
-        #st.image(wordcloud_path)
-        st.success(f'Word cloud for {selected_year} generated!')
+        st.image(wordcloud_path)
+        pos_posts, neg_posts, neu_posts = get_sample_posts(df)
+        st.subheader("Sample Positive Posts:")
+        st.table(pos_posts[['Title', 'Subreddit', 'Time']])
+
+        st.subheader("Sample Negative Posts:")
+        st.table(neg_posts[['Title', 'Subreddit', 'Time']])
+
+        st.subheader("Sample Neutral Posts:")
+        st.table(neu_posts[['Title', 'Subreddit', 'Time']])
+
+
