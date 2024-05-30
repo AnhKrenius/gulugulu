@@ -94,7 +94,7 @@ def draw_wordcloud(df):
     plt.savefig(f'wordcloud.png')
     plt.close()
 
-    return f'wordcloud.png'
+    return 'wordcloud.png'
 # Sample posts
 def get_sample_posts(df):
   pos_posts = df[df['sentiment']=='POS'].sample(3)
