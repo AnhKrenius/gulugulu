@@ -74,6 +74,7 @@ def draw_plot_for_keyword(keyword,subreddit_name):
             return common_sentiment
         else:
             return 'Not classified'
+    df['sentiment'] = df['Text'].apply(lambda x: get_sentiment(x))
     sentiment_counts = df['sentiment'].value_counts()
     plt.figure(figsize=(8,6))
     plt.pie(sentiment_counts, labels = sentiment_counts.index, autopct ='%1.1f%%', startangle = 140)
