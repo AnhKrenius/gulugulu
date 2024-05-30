@@ -1,0 +1,7 @@
+streamlit
+praw
+pandas
+matplotlib
+transformers
+torch
+wordcloud
