@@ -8,11 +8,6 @@ from wordcloud import WordCloud
 import os
 # from config import reddit_config
 # Initialize Reddit instance
-#reddit = praw.Reddit(client_id=reddit_config['client_id'],
-#                    client_secret=reddit_config['client_secret'],
-#                    user_agent=reddit_config['user_agent'],
-#                    username=reddit_config['username'],
-#                    password=reddit_config['password'])'''
 reddit = praw.Reddit(client_id='yMQwdMYVS1J3wVfeb_3fuw',
                      client_secret='3sFTR2aigu8d0D2rXMFkNxJpyM3KLQ',
                      user_agent='testscript by u/sentiment',
@@ -87,11 +82,13 @@ def draw_plot_for_keyword(keyword,subreddit_name):
     return df, 'static/sentiment_pie_chart.png'
 
 def draw_wordcloud(df):
-    posts_in_year = df
-    post_title_text_in_year = ' '.join(item for item in posts_in_year[~posts_in_year['Title'].isna()]['Title'])
-    word_cloud = WordCloud(collocation_threshold = 2, width = 1000, height = 500, background_color ='white').generate(post_title_text_in_year)
+    #wordcloud
+    post_title_text = ' '.join([title for title in df['Title'].str.lower()])
+    word_cloud = WordCloud(collocation_threshold = 2, width = 1000, height=500,
+                       background_color='white').generate(post_title_text)
+    #Display
     plt.figure(figsize=(10,5))
-    plt.imshow(word_cloud, interpolation = "bilinear")
+    plt.imshow(word_cloud)
     plt.axis("off")
     plt.title(f'Word Cloud')
     plt.savefig(f'static/wordcloud.png')
@@ -108,8 +105,8 @@ subreddit = st.text_input('Enter a subreddit (optional):','all')
 if st.button('Search'):
     with st.spinner('Fetching and analyzing data...'):
         df, pie_chart_path = draw_plot_for_keyword(keyword,subreddit)
-        wordcloud_path = draw_wordcloud_by_year(df)
+        wordcloud_path = draw_wordcloud(df)
         st.image(pie_chart_path)
-        st.image(wordcloud_path)
         st.success('Pie chart complete!')
+        st.image(wordcloud_path)
         st.success(f'Word cloud for {selected_year} generated!')
