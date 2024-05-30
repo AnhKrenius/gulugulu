@@ -108,11 +108,10 @@ subreddit = st.text_input('Enter a subreddit (optional):','all')
 if st.button('Search'):
     with st.spinner('Fetching and analyzing data...'):
         df, pie_chart_path = draw_plot_for_keyword(keyword,subreddit)
-        st.image(pie_chart_path)
-        st.success('Pie chart complete!')
         min_year = int(df['created_year'].min())
         max_year = int(df['created_year'].max())
         selected_year = st.slider('Select a year to generate word cloud:',min_year,max_year,min_year)
         wordcloud_path = draw_wordcloud_by_year(df,selected_year)
-        st.image(wordcloud_path)
+        st.image(pie_chart_path, wordcloud_path)
+        st.success('Pie chart complete!')
         st.success(f'Word cloud for {selected_year} generated!')
