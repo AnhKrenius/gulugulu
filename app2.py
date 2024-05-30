@@ -111,7 +111,7 @@ if st.button('Search'):
         min_year = int(df['created_year'].min())
         max_year = int(df['created_year'].max())
         selected_year = st.slider('Select a year to generate word cloud:',min_year,max_year,min_year)
-        wordcloud_path = draw_wordcloud_by_year(df,selected_year)
+        wordcloud_path = draw_wordcloud_by_year(df)
         st.image(wordcloud_path)
         st.success('Pie chart complete!')
         st.success(f'Word cloud for {selected_year} generated!')
