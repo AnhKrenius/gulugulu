@@ -86,8 +86,8 @@ def draw_plot_for_keyword(keyword,subreddit_name):
 
     return df, 'static/sentiment_pie_chart.png'
 
-def draw_wordcloud_by_year(df,year):
-    posts_in_year = df[df["created_year"]==year]
+def draw_wordcloud(df):
+    posts_in_year = df
     post_title_text_in_year = ' '.join(item for item in posts_in_year[~posts_in_year['Title'].isna()]['Title'])
     word_cloud = WordCloud(collocation_threshold = 2, width = 1000, height = 500, background_color ='white').generate(post_title_text_in_year)
     plt.figure(figsize=(10,5))
@@ -113,9 +113,6 @@ if st.button('Search'):
         min_year = int(df['created_year'].min())
         max_year = int(df['created_year'].max())
         selected_year = st.slider('Select a year to generate word cloud:',min_year,max_year,min_year)
-
-        if st.button('Generate Word Cloud'):
-            with st.spinner('Generating word cloud...'):
-                wordcloud_path = draw_wordcloud_by_year(df,selected_year)
-                st.image(wordcloud_path)
-                st.success(f'Word cloud for {selected_year} generated!')
+        wordcloud_path = draw_wordcloud_by_year(df,selected_year)
+        st.image(wordcloud_path)
+        st.success(f'Word cloud for {selected_year} generated!')
