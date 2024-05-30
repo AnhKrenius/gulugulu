@@ -93,11 +93,11 @@ def draw_wordcloud(df):
     plt.figure(figsize=(10,5))
     plt.imshow(word_cloud, interpolation = "bilinear")
     plt.axis("off")
-    plt.title(f'Word Cloud for {year}')
-    plt.savefig(f'static/wordcloud_{year}.png')
+    plt.title(f'Word Cloud')
+    plt.savefig(f'static/wordcloud.png')
     plt.close()
 
-    return f'static/wordcloud_{year}.png'
+    return f'static/wordcloud.png'
 
 #Streamlit app
 st.title("Social Media Sentiment Analysis")
