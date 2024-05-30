@@ -6,7 +6,7 @@ from transformers import pipeline
 from datetime import datetime
 from wordcloud import WordCloud
 import os
-from config import reddit_config
+# from config import reddit_config
 # Initialize Reddit instance
 '''reddit = praw.Reddit(client_id=reddit_config['client_id'],
                      client_secret=reddit_config['client_secret'],
