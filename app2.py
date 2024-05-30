@@ -8,11 +8,11 @@ from wordcloud import WordCloud
 import os
 # from config import reddit_config
 # Initialize Reddit instance
-'''reddit = praw.Reddit(client_id=reddit_config['client_id'],
-                     client_secret=reddit_config['client_secret'],
-                     user_agent=reddit_config['user_agent'],
-                     username=reddit_config['username'],
-                     password=reddit_config['password'])'''
+#reddit = praw.Reddit(client_id=reddit_config['client_id'],
+#                    client_secret=reddit_config['client_secret'],
+#                    user_agent=reddit_config['user_agent'],
+#                    username=reddit_config['username'],
+#                    password=reddit_config['password'])'''
 reddit = praw.Reddit(client_id='yMQwdMYVS1J3wVfeb_3fuw',
                      client_secret='3sFTR2aigu8d0D2rXMFkNxJpyM3KLQ',
                      user_agent='testscript by u/sentiment',
