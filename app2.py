@@ -105,8 +105,8 @@ subreddit = st.text_input('Enter a subreddit (optional):','all')
 if st.button('Search'):
     with st.spinner('Fetching and analyzing data...'):
         df, pie_chart_path = draw_plot_for_keyword(keyword,subreddit)
-        wordcloud_path = draw_wordcloud(df)
+        #wordcloud_path = draw_wordcloud(df)
         st.image(pie_chart_path)
         st.success('Pie chart complete!')
-        st.image(wordcloud_path)
+        #st.image(wordcloud_path)
         st.success(f'Word cloud for {selected_year} generated!')
