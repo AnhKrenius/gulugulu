@@ -102,6 +102,18 @@ def get_sample_posts(df):
   neu_posts = df[df['sentiment']=='NEU'].sample(3)
   return pos_posts, neg_posts, neu_posts
 #Streamlit app
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"] {
+background-image: url("https://i.pinimg.com/originals/e4/52/99/e45299d660b601f029fe173f084feb42.jpg");
+background-size: cover;
+}
+[data-testid="stHeader"]{
+background:rgba(0,0,0,0);
+}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
 st.title("Social Media Sentiment Analysis")
 st.write("Analyze the sentiment of Reddit posts based on a given keyword.")
 keyword = st.text_input('Enter a keyword: ')
