@@ -48,7 +48,7 @@ def draw_plot_for_keyword(keyword,subreddit_name):
 
 # Create DataFrame
     df = pd.DataFrame(data)
-    df['Time'] = pd.to_datetime(df['Time'])
+    df['Time'] = pd.to_datetime(df['Time'], error ='coerce')
     df['created_year'] = df['Time'].dt.year
     sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
     def get_sentiment(row):
