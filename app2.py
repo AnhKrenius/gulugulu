@@ -29,14 +29,25 @@ def draw_plot_for_keyword(keyword,subreddit_name):
         for submission in submissions:
             combined_submissions[submission.id] = submission
     sorted_submissions = sorted(combined_submissions.values(), key=lambda x:x.created_utc,reverse = True )
-    df = pd.DataFrame([{
+    data = []
+    for submission in sorted_submissions:
+      try:
+        # Ensure consistent datetime conversion
+        submission_time = datetime.utcfromtimestamp(submission.created_utc).strftime('%d-%m-%Y %H:%M:%S')
+      except Exception as e:
+        submission_time = ''
+    
+      data.append({
         'ID': submission.id,
         'Subreddit': submission.subreddit.display_name,
         'Title': submission.title,
         'Text': submission.selftext,
-        'URL':submission.url,
-        'Time': datetime.utcfromtimestamp(submission.created_utc).strftime('%d-%m-%Y %H:%M:%S')
-    } for submission in sorted_submissions])
+        'URL': submission.url,
+        'Time': submission_time
+      })
+
+# Create DataFrame
+    df = pd.DataFrame(data)
     df['Time'] = pd.to_datetime(df['Time'])
     df['created_year'] = df['Time'].dt.year
     sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
