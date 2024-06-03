@@ -21,13 +21,22 @@ def perform_search(subreddit_name, keyword, sort):
         subreddit = reddit.subreddit(subreddit_name)
         submissions = subreddit.search(keyword,sort=sort, limit = None)
     return submissions
+def fetch_submissions(subreddit_name, keyword, sort_types):
+    combined_submissions = {}
+    with ThreadPoolExecutor() as executor:
+        futures = {executor.submit(perform_search, subreddit_name, keyword, sort): sort for sort in sort_types}
+        for future in futures:
+            sort_type = futures[future]
+            try:
+                submissions = future.result()
+                for submission in submissions:
+                    combined_submissions[submission.id] = submission
+            except Exception as e:
+                st.warning(f"Error fetching submissions for sort type {sort_type}: {e}")
+    return combined_submissions
 def draw_plot_for_keyword(keyword,subreddit_name):
     sort_types = ['relevance','hot','top','new','comments']
-    combined_submissions = {}
-    for sort_type in sort_types:
-        submissions = perform_search(subreddit_name,keyword,sort = sort_type)
-        for submission in submissions:
-            combined_submissions[submission.id] = submission
+    combined_submissions = fetch_submissions((subreddit_name, keyword, sort_types)
     sorted_submissions = sorted(combined_submissions.values(), key=lambda x:x.created_utc,reverse = True )
     data = []
     for submission in sorted_submissions:
@@ -43,7 +52,8 @@ def draw_plot_for_keyword(keyword,subreddit_name):
         'Title': submission.title,
         'Text': submission.selftext,
         'URL': submission.url,
-        'Time': submission_time
+        'Time': submission_time,
+        'isself': submission.is_self
       })
 
 # Create DataFrame
@@ -108,9 +118,9 @@ def draw_wordcloud(df):
     return 'wordcloud.png'
 # Sample posts
 def get_sample_posts(df):
-  pos_posts = df[df['sentiment']=='POS'].sample(3)
-  neg_posts = df[df['sentiment']=='NEG'].sample(3)
-  neu_posts = df[df['sentiment']=='NEU'].sample(3)
+  pos_posts = df[df['sentiment']=='POS'&df['isself']==True].sample(3)
+  neg_posts = df[df['sentiment']=='NEG'&df['isself']==True].sample(3)
+  neu_posts = df[df['sentiment']=='NEU'&df['isself']==True].sample(3)
   return pos_posts, neg_posts, neu_posts
 #Streamlit app
 page_bg_img = """
@@ -133,6 +143,7 @@ subreddit = st.text_input('Enter a subreddit (optional):','all')
 if st.button('Search'):
     with st.spinner('Fetching and analyzing data...'):
         df, pie_chart_path = draw_plot_for_keyword(keyword,subreddit)
+        st.write(f"Total: {len(df)} posts")
         wordcloud_path = draw_wordcloud(df)
         st.image(pie_chart_path)
         st.image(wordcloud_path)
