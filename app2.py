@@ -119,9 +119,9 @@ def draw_wordcloud(df):
     return 'wordcloud.png'
 # Sample posts
 def get_sample_posts(df):
-  pos_posts = df[df['sentiment']=='POS'&df['isself']==True].sample(3)
-  neg_posts = df[df['sentiment']=='NEG'&df['isself']==True].sample(3)
-  neu_posts = df[df['sentiment']=='NEU'&df['isself']==True].sample(3)
+  pos_posts = df[(df['sentiment']=='POS')&(df['isself']==True)].sample(3)
+  neg_posts = df[(df['sentiment']=='NEG')&(df['isself']==True)].sample(3)
+  neu_posts = df[(df['sentiment']=='NEU')&(df['isself']==True]).sample(3)
   return pos_posts, neg_posts, neu_posts
 #Streamlit app
 page_bg_img = """
