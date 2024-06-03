@@ -36,7 +36,7 @@ def fetch_submissions(subreddit_name, keyword, sort_types):
     return combined_submissions
 def draw_plot_for_keyword(keyword,subreddit_name):
     sort_types = ['relevance','hot','top','new','comments']
-    combined_submissions = fetch_submissions((subreddit_name, keyword, sort_types)
+    combined_submissions = fetch_submissions(subreddit_name, keyword, sort_types)
     sorted_submissions = sorted(combined_submissions.values(), key=lambda x:x.created_utc,reverse = True )
     data = []
     for submission in sorted_submissions:
