@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from transformers import pipeline
 from datetime import datetime
 from wordcloud import WordCloud
+from concurrent.futures import ThreadPoolExecutor
 import os
 # from config import reddit_config
 # Initialize Reddit instance
