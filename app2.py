@@ -134,6 +134,21 @@ background-size: cover;
 [data-testid="stHeader"]{
 background:rgba(0,0,0,0);
 }
+[data-testid="column"] {
+  /* using the shorthand property to set the border radius on all corners */
+  top:50%;
+  left:50%;
+  border-radius: 50px;
+  border-style: dotted;
+  border-color: #bfbfbf;
+  padding: 2.2rem 2.3rem;
+  flex-direction:column;
+  align-items:left;
+  text-align: left;
+  font-size: 32px;
+  max-width: 320px;
+  max-height: 300px;
+}
 </style>
 """
 st.markdown(page_bg_img, unsafe_allow_html=True)
@@ -153,13 +168,29 @@ if st.button('Search'):
         with col2:
           st.image(wordcloud_path)
         pos_posts, neg_posts, neu_posts = get_sample_posts(df)
-        st.subheader("Sample Positive Posts:")
-        st.table(pos_posts[['Title', 'Subreddit', 'Time','URL']])
-
-        st.subheader("Sample Negative Posts:")
-        st.table(neg_posts[['Title', 'Subreddit', 'Time','URL']])
-
-        st.subheader("Sample Neutral Posts:")
-        st.table(neu_posts[['Title', 'Subreddit', 'Time','URL']])
+        col1, col2, col3 = st.columns(3,gap = "medium")
+        def short(text1):
+          try:
+            text = text1[:70]
+          except:
+            text = text1["Text"]
+        return text
+        title1 = pos_posts.iloc[0]["Title"][:20]
+        with col1:
+            st.header('POS POSTS')
+            st.markdown(short(pos_posts.iloc[0]["Text"])+'...')
+            url1 = pos_posts.iloc[0]["URL"]
+            st.write("Read more [link](%s)" % url1)
+        with col2:
+            st.header("NEG POSTS")
+            st.markdown(short(neg_posts.iloc[0]["Text"])+'...')
+            url2 = neg_posts.iloc[0]["URL"]
+            st.write("Read more [link](%s)" % url2)
+        with col3:
+            st.header("NEU POSTS")
+            st.subheader("❓"+title1)
+            st.markdown(short(neu_posts.iloc[0]["Text"]) + '...')
+            url3 = neu_posts.iloc[0]["URL"]
+            st.write("Read more [link](%s)" % url3)
 
 
