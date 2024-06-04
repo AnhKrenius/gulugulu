@@ -174,7 +174,7 @@ if st.button('Search'):
             text = text1[:70]
           except:
             text = text1["Text"]
-        return text
+          return text
         title1 = pos_posts.iloc[0]["Title"][:20]
         with col1:
             st.header('POS POSTS')
