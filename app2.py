@@ -126,6 +126,7 @@ def get_sample_posts(df):
 #Streamlit app
 page_bg_img = """
 <style>
+section.main >div {max-width:70rem}
 [data-testid="stAppViewContainer"] {
 background-image: url("https://i.pinimg.com/originals/e4/52/99/e45299d660b601f029fe173f084feb42.jpg");
 background-size: cover;
