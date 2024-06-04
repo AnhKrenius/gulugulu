@@ -172,6 +172,7 @@ if st.button('Search'):
         wordcloud_path = draw_wordcloud(df)
         images = [pie_chart_path, wordcloud_path]
         st.image(images,width=468)
+        st.header("Sample posts")
         pos_posts, neg_posts, neu_posts = get_sample_posts(df)
         col1, col2, col3 = st.columns(3,gap = "medium")
         def short(text1):
