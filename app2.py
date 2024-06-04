@@ -147,7 +147,7 @@ background:rgba(0,0,0,0);
   text-align: left;
   font-size: 32px;
   max-width: 320px;
-  max-height: 300px;
+  max-height: 400px;
 }
 </style>
 """
