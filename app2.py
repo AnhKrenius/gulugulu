@@ -138,7 +138,6 @@ background:rgba(0,0,0,0);
 border: 1px solid #ddd;
 border-radius: 4px;
 padding: 5px;
-width: 150px;
 }
 [data-testid="column"] {
   /* using the shorthand property to set the border radius on all corners */
