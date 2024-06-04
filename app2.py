@@ -180,6 +180,7 @@ if st.button('Search'):
             title = title1[:20]
           except:
             title = title1
+          return title
         with col1:
             st.subheader("😊"+short_title(pos_posts.iloc[0]["Title"]))
             st.markdown(short(pos_posts.iloc[0]["Text"])+'...')
