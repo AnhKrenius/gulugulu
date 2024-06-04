@@ -109,7 +109,7 @@ def draw_wordcloud(df):
     word_cloud = WordCloud(collocation_threshold = 2, width = 1000, height=500,
                        background_color='white').generate(post_title_text)
     #Display
-    plt.figure(figsize=(10,5))
+    plt.figure(figsize=(8,6))
     plt.imshow(word_cloud)
     plt.axis("off")
     plt.title(f'Word Cloud')
@@ -154,12 +154,12 @@ if st.button('Search'):
           st.image(wordcloud_path)
         pos_posts, neg_posts, neu_posts = get_sample_posts(df)
         st.subheader("Sample Positive Posts:")
-        st.table(pos_posts[['Title', 'Subreddit', 'Time']])
+        st.table(pos_posts[['Title', 'Subreddit', 'Time','URL']])
 
         st.subheader("Sample Negative Posts:")
-        st.table(neg_posts[['Title', 'Subreddit', 'Time']])
+        st.table(neg_posts[['Title', 'Subreddit', 'Time','URL']])
 
         st.subheader("Sample Neutral Posts:")
-        st.table(neu_posts[['Title', 'Subreddit', 'Time']])
+        st.table(neu_posts[['Title', 'Subreddit', 'Time','URL']])
 
 
