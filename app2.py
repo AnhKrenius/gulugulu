@@ -173,22 +173,25 @@ if st.button('Search'):
           try:
             text = text1[:70]
           except:
-            text = text1["Text"]
+            text = text1
           return text
-        title1 = pos_posts.iloc[0]["Title"][:20]
+        def short_title(title1):
+          try:
+            title = title1[:20]
+          except:
+            title = title1
         with col1:
-            st.header('POS POSTS')
+            st.subheader("😊"+short_title(pos_posts.iloc[0]["Title"]))
             st.markdown(short(pos_posts.iloc[0]["Text"])+'...')
             url1 = pos_posts.iloc[0]["URL"]
             st.write("Read more [link](%s)" % url1)
         with col2:
-            st.header("NEG POSTS")
+            st.subheader("😭"+short_title(neg_posts.iloc[0]["Title"]))
             st.markdown(short(neg_posts.iloc[0]["Text"])+'...')
             url2 = neg_posts.iloc[0]["URL"]
             st.write("Read more [link](%s)" % url2)
         with col3:
-            st.header("NEU POSTS")
-            st.subheader("❓"+title1)
+            st.subheader("😶"+short_title(neu_posts.iloc[0]["Title"]))
             st.markdown(short(neu_posts.iloc[0]["Text"]) + '...')
             url3 = neu_posts.iloc[0]["URL"]
             st.write("Read more [link](%s)" % url3)
