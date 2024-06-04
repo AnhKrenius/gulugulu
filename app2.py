@@ -151,6 +151,9 @@ background:rgba(0,0,0,0);
 }
 </style>
 """
+st.set_page_config(layout = "wide",
+                   page_icon="☕",
+                   page_title="GuLu")
 st.markdown(page_bg_img, unsafe_allow_html=True)
 st.title("Social Media Sentiment Analysis")
 st.write("Analyze the sentiment of Reddit posts based on a given keyword.")
@@ -162,8 +165,8 @@ if st.button('Search'):
         df, pie_chart_path = draw_plot_for_keyword(keyword,subreddit)
         st.write(f"Total: {len(df)} posts")
         wordcloud_path = draw_wordcloud(df)
-        st.image(pie_chart_path)
-        st.image(wordcloud_path)
+        images = [pie_chart_path, wordcloud_path]
+        st.image(images)
         pos_posts, neg_posts, neu_posts = get_sample_posts(df)
         col1, col2, col3 = st.columns(3,gap = "medium")
         def short(text1):
