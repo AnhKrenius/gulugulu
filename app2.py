@@ -134,6 +134,12 @@ background-size: cover;
 [data-testid="stHeader"]{
 background:rgba(0,0,0,0);
 }
+[data-testid="stImage"]{
+border: 1px solid #ddd;
+border-radius: 4px;
+padding: 5px;
+width: 150px;
+}
 [data-testid="column"] {
   /* using the shorthand property to set the border radius on all corners */
   top:50%;
