@@ -162,11 +162,8 @@ if st.button('Search'):
         df, pie_chart_path = draw_plot_for_keyword(keyword,subreddit)
         st.write(f"Total: {len(df)} posts")
         wordcloud_path = draw_wordcloud(df)
-        col1, col2 = st.columns(2)
-        with col1:
-          st.image(pie_chart_path)
-        with col2:
-          st.image(wordcloud_path)
+        st.image(pie_chart_path)
+        st.image(wordcloud_path)
         pos_posts, neg_posts, neu_posts = get_sample_posts(df)
         col1, col2, col3 = st.columns(3,gap = "medium")
         def short(text1):
