@@ -155,6 +155,7 @@ keyword = st.text_input('Enter a keyword: ')
 subreddit = st.text_input('Enter a subreddit (optional):','all')
 if 'data_loaded' not in st.session_state:
   st.session_state.data_loaded = False
+df = None
 if not st.session_state.data_loaded:
   if st.button('Search'):
     with st.spinner('Collecting data...'):
