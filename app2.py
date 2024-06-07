@@ -153,14 +153,14 @@ st.title("Social Media Sentiment Analysis")
 st.write("Analyze the sentiment of Reddit posts based on a given keyword.")
 keyword = st.text_input('Enter a keyword: ')
 subreddit = st.text_input('Enter a subreddit (optional):','all')
-if 'button' not in st.session_state:
-  st.session_state.button = False
-def click_button():
-  st.session_state.button = not st.session_state.button
-st.button('Search', on_click = click_button)
-if st.session_state.button:
+if 'data_loaded' not in st.session_state:
+  st.session_state.data_loaded = False
+if not st.session_state.data_loaded:
+  if st.button('Search'):
     with st.spinner('Collecting data...'):
         df = create_dataframe(keyword,subreddit)
+        st.session_state.data_loaded = True
+if st.session_state.data_loaded:
     with st.spinner('Analyzing data...'):
         st.write(f"Total: {len(df)} posts")
         min_year = int(df['created_year'].min())
