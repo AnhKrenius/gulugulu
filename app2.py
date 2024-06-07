@@ -166,6 +166,7 @@ if st.session_state.data_loaded:
         df=st.session_state.df
         if st.button('Search other keyword'):
           st.session_state.data_loaded = False
+          st.rerun()
         st.write(f"Total: {len(df)} posts")
         min_year = int(df['created_year'].min())
         max_year = int(df['created_year'].max())
