@@ -54,7 +54,8 @@ def draw_plot_for_keyword(keyword,subreddit_name):
         'Text': submission.selftext,
         'URL': submission.url,
         'Time': submission_time,
-        'isself': submission.is_self
+        'isself': submission.is_self,
+        'score':submission.score if submission.score else 0
       })
 
 # Create DataFrame
