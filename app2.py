@@ -160,7 +160,14 @@ if st.button('Search'):
         st.write(f"Total: {len(df)} posts")
         min_year = int(df['created_year'].min())
         max_year = int(df['created_year'].max())
+        session_state = st.session_state
+        if 'min_year' not in session_state:
+            session_state.min_year = None
+        if 'max_year' not in session_state:
+            session_state.max_year = None
         chosen_min_year, chosen_max_year = st.slider('Choose a Year Range', min_value=min_year, max_value = max_year, value = (min_year, max_year))
+        session_state.min_year = chosen_min_year
+        session_state.max_year = chosen_max_year
         df_sub = df[(df['created_year']<=chosen_max_year)&(df['created_year']>=chosen_min_year)]
         pie_chart_path = draw_pie_chart(df_sub)
         wordcloud_path = draw_wordcloud(df_sub)
