@@ -130,7 +130,7 @@ def get_posts(df):
 #Streamlit app
 page_bg_img = """
 <style>
-section.main >div {max-width:70rem}
+section.main >div {max-width:90rem}
 [data-testid="stAppViewContainer"] {
 background-image: url("https://i.pinimg.com/originals/e4/52/99/e45299d660b601f029fe173f084feb42.jpg");
 background-size: cover;
@@ -142,21 +142,6 @@ background:rgba(0,0,0,0);
 border: 1px solid #ddd;
 border-radius: 4px;
 padding: 5px;
-}
-[data-testid="column"] {
-  /* using the shorthand property to set the border radius on all corners */
-  top:50%;
-  left:50%;
-  border-radius: 50px;
-  border-style: dotted;
-  border-color: #bfbfbf;
-  padding: 2.2rem 2.3rem;
-  flex-direction:column;
-  align-items:left;
-  text-align: left;
-  font-size: 32px;
-  max-width: 320px;
-  max-height: 400px;
 }
 </style>
 """
