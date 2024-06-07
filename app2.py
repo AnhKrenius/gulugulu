@@ -153,21 +153,18 @@ st.title("Social Media Sentiment Analysis")
 st.write("Analyze the sentiment of Reddit posts based on a given keyword.")
 keyword = st.text_input('Enter a keyword: ')
 subreddit = st.text_input('Enter a subreddit (optional):','all')
-
-if st.button('Search'):
+if 'button' not in st.session_state:
+  st.session_state.button = False
+def click_button():
+  st.session_state.button = not st.session_state.button
+st.button('Search', on_click = click_button)
+if st.session_state.button:
     with st.spinner('Fetching and analyzing data...'):
         df = create_dataframe(keyword,subreddit)
         st.write(f"Total: {len(df)} posts")
         min_year = int(df['created_year'].min())
         max_year = int(df['created_year'].max())
-        session_state = st.session_state
-        if 'min_year' not in session_state:
-            session_state.min_year = None
-        if 'max_year' not in session_state:
-            session_state.max_year = None
         chosen_min_year, chosen_max_year = st.slider('Choose a Year Range', min_value=min_year, max_value = max_year, value = (min_year, max_year))
-        session_state.min_year = chosen_min_year
-        session_state.max_year = chosen_max_year
         df_sub = df[(df['created_year']<=chosen_max_year)&(df['created_year']>=chosen_min_year)]
         pie_chart_path = draw_pie_chart(df_sub)
         wordcloud_path = draw_wordcloud(df_sub)
