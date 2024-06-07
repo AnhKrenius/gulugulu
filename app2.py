@@ -164,6 +164,8 @@ if not st.session_state.data_loaded:
 if st.session_state.data_loaded:
     with st.spinner('Analyzing data...'):
         df=st.session_state.df
+        if st.button('Search other keyword'):
+          st.session_state.data_loaded = False
         st.write(f"Total: {len(df)} posts")
         min_year = int(df['created_year'].min())
         max_year = int(df['created_year'].max())
@@ -231,7 +233,5 @@ if st.session_state.data_loaded:
                                  "url", width=40
                              )
                          })
-        if st.button('Search other keyword'):
-          st.session_state.data_loaded = False
         
         
