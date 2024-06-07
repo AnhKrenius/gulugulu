@@ -159,8 +159,9 @@ def click_button():
   st.session_state.button = not st.session_state.button
 st.button('Search', on_click = click_button)
 if st.session_state.button:
-    df = create_dataframe(keyword,subreddit)
-    with st.spinner('Fetching and analyzing data...'):
+    with st.spinner('Collecting data...'):
+        df = create_dataframe(keyword,subreddit)
+    with st.spinner('Analyzing data...'):
         st.write(f"Total: {len(df)} posts")
         min_year = int(df['created_year'].min())
         max_year = int(df['created_year'].max())
