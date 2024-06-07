@@ -170,9 +170,8 @@ if st.session_state.data_loaded:
         chosen_min_year, chosen_max_year = st.slider('Choose a Year Range', min_value=min_year, max_value = max_year, value = (min_year, max_year))
         df_sub = df[(df['created_year']<=chosen_max_year)&(df['created_year']>=chosen_min_year)]
         pie_chart_path = draw_pie_chart(df_sub)
-        #wordcloud_path = draw_wordcloud(df_sub)
-        #images = [pie_chart_path, wordcloud_path]
-        images = [pie_chart_path]
+        wordcloud_path = draw_wordcloud(df_sub)
+        images = [pie_chart_path, wordcloud_path]
         st.image(images,width=468)
         pos_posts, neg_posts, neu_posts = get_posts(df_sub)
         note = '<p style="font-family:Fira Sans; font-size: 16px;"><i>👉 Click on Score to sort as desired</i></p>'
