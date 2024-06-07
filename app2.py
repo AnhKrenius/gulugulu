@@ -52,7 +52,7 @@ def draw_plot_for_keyword(keyword,subreddit_name):
         'Subreddit': submission.subreddit.display_name,
         'Title': submission.title,
         'Text': submission.selftext,
-        'URL': submission.url,
+        'Permalink': submission.permalink,
         'Time': submission_time,
         'isself': submission.is_self,
         'score':submission.score if submission.score else 0
@@ -60,6 +60,7 @@ def draw_plot_for_keyword(keyword,subreddit_name):
 
 # Create DataFrame
     df = pd.DataFrame(data)
+    df['URL']='https://www.reddit.com/' + df['Permalink']
     df['Time'] = pd.to_datetime(df['Time'], errors ='coerce')
     df['created_year'] = df['Time'].dt.year
     sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
