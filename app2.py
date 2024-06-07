@@ -231,7 +231,7 @@ if st.session_state.data_loaded:
                                  "url", width=40
                              )
                          })
-       if st.button('Search other keyword'):
-         st.session_state.data_loaded = False
+        if st.button('Search other keyword'):
+          st.session_state.data_loaded = False
         
         
