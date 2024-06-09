@@ -9,11 +9,11 @@ from concurrent.futures import ThreadPoolExecutor
 import os
 # from config import reddit_config
 # Initialize Reddit instance
-reddit = praw.Reddit(client_id='client_id',
-                     client_secret='client_secret',
+reddit = praw.Reddit(client_id=st.secrets["client_id"],
+                     client_secret=st.secrets["client_secret"],
                      user_agent='testscript by u/sentiment',
-                     username='username',
-                     password='password')
+                     username=st.secrets["username"],
+                     password=st.secrets["password"])
 #Function to perform the search
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
