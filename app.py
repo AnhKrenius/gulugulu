@@ -40,7 +40,7 @@ def create_dataframe(keyword,subreddit_name):
     sort_types = ['relevance','hot','top','new','comments']
     combined_submissions = fetch_submissions(subreddit_name, keyword, sort_types)
     data = []
-    for submission in combined_submissions:
+    for submission in combined_submissions.values():
       try:
         # Ensure consistent datetime conversion
         submission_time = datetime.utcfromtimestamp(submission.created_utc).strftime('%d-%m-%Y %H:%M:%S')
