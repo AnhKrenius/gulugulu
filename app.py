@@ -60,7 +60,7 @@ def create_dataframe(keyword,subreddit_name):
 # Create DataFrame
     df = pd.DataFrame(data)
     df['URL']='https://www.reddit.com/' + df['Permalink']
-    df['Time'] = pd.to_datetime(df['Time'], errors ='coerce')
+    df['Time'] = pd.to_datetime(df['Time'], dayfirst=True, errors ='coerce')
     df['created_year'] = df['Time'].dt.year
     def get_sentiment(row):
         # create a list to store chunks of text
