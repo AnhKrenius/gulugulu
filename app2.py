@@ -14,7 +14,6 @@ reddit = praw.Reddit(client_id='yMQwdMYVS1J3wVfeb_3fuw',
                      username='Gulugulugulu1607',
                      password='gulugulugulu')
 #Function to perform the search
-@st.cache_data
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
         submissions = reddit.subreddit("all").search(keyword,sort=sort,limit=250)
@@ -22,7 +21,6 @@ def perform_search(subreddit_name, keyword, sort):
         subreddit = reddit.subreddit(subreddit_name)
         submissions = subreddit.search(keyword,sort=sort, limit = 250)
     return submissions
-@st.cache_data
 def fetch_submissions(subreddit_name, keyword, sort_types):
     combined_submissions = {}
     with ThreadPoolExecutor() as executor:
@@ -36,7 +34,6 @@ def fetch_submissions(subreddit_name, keyword, sort_types):
             except Exception as e:
                 st.warning(f"Error fetching submissions for sort type {sort_type}: {e}")
     return combined_submissions
-@st.cache_data
 def create_dataframe(keyword,subreddit_name):
     sort_types = ['relevance','hot','top','new','comments']
     combined_submissions = fetch_submissions(subreddit_name, keyword, sort_types)
@@ -67,15 +64,33 @@ def create_dataframe(keyword,subreddit_name):
     df['created_year'] = df['Time'].dt.year
     sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
     def get_sentiment(row):
-        text = row['Text'] if pd.notnull(row['Text']) else row['Title']
-        text_chunks = [text[i:i + 512] for i in range(0, len(text), 512)]
-        try:
-            sentiment_results = sentiment_classifier(text_chunks)
-        except:
-            sentiment_results = []
-        sentiments = [result['label'] for result in sentiment_results if 'label' in result]
-        common_sentiment = max(set(sentiments), key=sentiments.count) if sentiments else "Not classified"
-        return common_sentiment
+        text_chunks = []
+
+        if pd.notnull(row['Text']):  # if 'Text' is not null, tokenize it
+            text_chunks = [row['Text'][i:i + 512] for i in range(0, len(row['Text']), 512)]
+            try:
+                sentiment_results = sentiment_classifier(text_chunks)
+            except:
+                sentiment_results = []
+            sentiments = [result['label'] for result in sentiment_results if 'label' in result]
+            # get the most common sentiment
+            common_sentiment = max(set(sentiments), key=sentiments.count) if sentiments else "Not classified"
+            if common_sentiment == "Not classified":  # Duty cycle for not classified sentiment
+                return get_sentiment({"Text": None, "Title": row['Title']})
+            else:
+                return common_sentiment
+        elif pd.notnull(row['Title']):  # if 'Text' is null, tokenize 'Title'
+            text_chunks = [row['Title'][i:i + 512] for i in range(0, len(row['Title']), 512)]
+            try:
+                sentiment_results = sentiment_classifier(text_chunks)
+            except:
+                return 'Not classified'
+            sentiments = [result['label'] for result in sentiment_results if 'label' in result]
+            # get the most common sentiment
+            common_sentiment = max(set(sentiments), key=sentiments.count) if sentiments else "Not classified"
+            return common_sentiment
+        else:
+            return 'Not classified'
     df['sentiment'] = df.apply(get_sentiment, axis = 1)
     return df
   
