@@ -14,7 +14,7 @@ reddit = praw.Reddit(client_id='yMQwdMYVS1J3wVfeb_3fuw',
                      username='Gulugulugulu1607',
                      password='gulugulugulu')
 #Function to perform the search
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
         submissions = reddit.subreddit("all").search(keyword,sort=sort,limit=250)
@@ -22,7 +22,7 @@ def perform_search(subreddit_name, keyword, sort):
         subreddit = reddit.subreddit(subreddit_name)
         submissions = subreddit.search(keyword,sort=sort, limit = 250)
     return submissions
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def fetch_submissions(subreddit_name, keyword, sort_types):
     combined_submissions = {}
     with ThreadPoolExecutor() as executor:
@@ -36,7 +36,7 @@ def fetch_submissions(subreddit_name, keyword, sort_types):
             except Exception as e:
                 st.warning(f"Error fetching submissions for sort type {sort_type}: {e}")
     return combined_submissions
-@st.cache(suppress_st_warning=True)
+@st.cache_data(suppress_st_warning=True)
 def create_dataframe(keyword,subreddit_name):
     sort_types = ['relevance','hot','top','new','comments']
     combined_submissions = fetch_submissions(subreddit_name, keyword, sort_types)
