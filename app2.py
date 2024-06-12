@@ -7,20 +7,19 @@ from datetime import datetime
 from wordcloud import WordCloud
 from concurrent.futures import ThreadPoolExecutor
 import os
-# from config import reddit_config
 # Initialize Reddit instance
-reddit = praw.Reddit(client_id=st.secrets["client_id"],
-                     client_secret=st.secrets["client_secret"],
+reddit = praw.Reddit(client_id='yMQwdMYVS1J3wVfeb_3fuw',
+                     client_secret='3sFTR2aigu8d0D2rXMFkNxJpyM3KLQ',
                      user_agent='testscript by u/sentiment',
-                     username=st.secrets["username"],
-                     password=st.secrets["password"])
+                     username='Gulugulugulu1607',
+                     password='gulugulugulu')
 #Function to perform the search
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
-        submissions = reddit.subreddit("all").search(keyword,sort=sort,limit=1000)
+        submissions = reddit.subreddit("all").search(keyword,sort=sort,limit=500)
     else:
         subreddit = reddit.subreddit(subreddit_name)
-        submissions = subreddit.search(keyword,sort=sort, limit = 1000)
+        submissions = subreddit.search(keyword,sort=sort, limit = 500)
     return submissions
 def fetch_submissions(subreddit_name, keyword, sort_types):
     combined_submissions = {}
