@@ -23,7 +23,7 @@ def perform_search(subreddit_name, keyword, sort):
     return submissions
 def fetch_submissions(subreddit_name, keyword, sort_types):
     combined_submissions = {}
-    with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor(max_workers=10) as executor:
         futures = {executor.submit(perform_search, subreddit_name, keyword, sort): sort for sort in sort_types}
         for future in futures:
             sort_type = futures[future]
