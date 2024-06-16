@@ -35,7 +35,7 @@ def fetch_submissions(subreddit_name, keyword, sort_types):
             except Exception as e:
                 st.warning(f"Error fetching submissions for sort type {sort_type}: {e}")
     return combined_submissions
-sentiment_classifier = pipeline('sentiment-analysis', model='distilbert-base-uncased-finetuned-sst-2-english')
+sentiment_classifier = pipeline('sentiment-analysis')
 def create_dataframe(keyword,subreddit_name):
     sort_types = ['relevance','hot','top','new','comments']
     combined_submissions = fetch_submissions(subreddit_name, keyword, sort_types)
