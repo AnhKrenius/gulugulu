@@ -8,11 +8,11 @@ from wordcloud import WordCloud
 from concurrent.futures import ThreadPoolExecutor
 import os
 # Initialize Reddit instance
-reddit = praw.Reddit(client_id=st.scecrets['client_id'],
-                     client_secret=st.scecrets['client_secret'],
+reddit = praw.Reddit(client_id=st.secrets['client_id'],
+                     client_secret=st.secrets['client_secret'],
                      user_agent='testscript by u/sentiment',
-                     username=st.scecrets['username'],
-                     password=st.scecrets['password'])
+                     username=st.secrets['username'],
+                     password=st.secrets['password'])
 #Function to perform the search
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
