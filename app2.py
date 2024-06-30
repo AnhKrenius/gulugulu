@@ -7,7 +7,6 @@ from datetime import datetime
 from wordcloud import WordCloud
 from concurrent.futures import ThreadPoolExecutor
 import os
-api_key = os.getenv('API_KEY')
 
 # Initialize Reddit instance
 reddit = praw.Reddit(client_id=os.getenv('h_client_id'),
