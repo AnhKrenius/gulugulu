@@ -13,7 +13,7 @@ reddit = praw.Reddit(client_id=os.getenv('h_client_id'),
                      client_secret=os.getenv('h_client_secret'),
                      user_agent='testscript by u/sentiment',
                      username=os.getenv('h_username'),
-                     password=os.getenv('h_password')
+                     password=os.getenv('h_password'))
 #Function to perform the search
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
