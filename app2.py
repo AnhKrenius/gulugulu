@@ -9,8 +9,8 @@ from concurrent.futures import ThreadPoolExecutor
 import os
 sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
 # Initialize Reddit instance
-reddit = praw.Reddit(client_id='yMQwdMYVS1J3wVfeb_3fuw',
-                     client_secret='3sFTR2aigu8d0D2rXMFkNxJpyM3KLQ',
+reddit = praw.Reddit(client_id='yNUqSD_PU1WIs0USLLacCQ',
+                     client_secret='ywhSLIwvBWb1f1Qe2xRm0xrSCjB38w',
                      user_agent='testscript by u/sentiment',
                      username='Gulugulugulu1607',
                      password='gulugulugulu')
