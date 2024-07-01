@@ -7,13 +7,13 @@ from datetime import datetime
 from wordcloud import WordCloud
 from concurrent.futures import ThreadPoolExecutor
 import os
-
+sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
 # Initialize Reddit instance
-reddit = praw.Reddit(client_id=os.getenv('h_client_id'),
-                     client_secret=os.getenv('h_client_secret'),
+reddit = praw.Reddit(client_id='yMQwdMYVS1J3wVfeb_3fuw',
+                     client_secret='3sFTR2aigu8d0D2rXMFkNxJpyM3KLQ',
                      user_agent='testscript by u/sentiment',
-                     username=os.getenv('h_username'),
-                     password=os.getenv('h_password'))
+                     username='Gulugulugulu1607',
+                     password='gulugulugulu')
 #Function to perform the search
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
@@ -43,7 +43,7 @@ def create_dataframe(keyword,subreddit_name):
     for submission in sorted_submissions:
       try:
         # Ensure consistent datetime conversion
-        submission_time = datetime.utcfromtimestamp(submission.created_utc).strftime('%d-%m-%Y %H:%M:%S')
+        submission_time = datetime.utcfromtimestamp(submission.created_utc)
       except Exception as e:
         submission_time = ''
     
@@ -63,7 +63,6 @@ def create_dataframe(keyword,subreddit_name):
     df['URL']='https://www.reddit.com/' + df['Permalink']
     df['Time'] = pd.to_datetime(df['Time'], errors ='coerce')
     df['created_year'] = df['Time'].dt.year
-    sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
     def get_sentiment(row):
         text_chunks = []
 
