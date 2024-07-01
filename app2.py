@@ -7,7 +7,6 @@ from datetime import datetime
 from wordcloud import WordCloud
 from concurrent.futures import ThreadPoolExecutor
 import os
-sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
 # Initialize Reddit instance
 reddit = praw.Reddit(client_id='yNUqSD_PU1WIs0USLLacCQ',
                      client_secret='ywhSLIwvBWb1f1Qe2xRm0xrSCjB38w',
@@ -63,6 +62,7 @@ def create_dataframe(keyword,subreddit_name):
     df['URL']='https://www.reddit.com/' + df['Permalink']
     df['Time'] = pd.to_datetime(df['Time'], errors ='coerce')
     df['created_year'] = df['Time'].dt.year
+    sentiment_classifier = pipeline(model='finiteautomata/bertweet-base-sentiment-analysis')
     def get_sentiment(row):
         text_chunks = []
 
