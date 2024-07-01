@@ -10,9 +10,7 @@ import os
 # Initialize Reddit instance
 reddit = praw.Reddit(client_id='yNUqSD_PU1WIs0USLLacCQ',
                      client_secret='ywhSLIwvBWb1f1Qe2xRm0xrSCjB38w',
-                     user_agent='testscript by u/sentiment',
-                     username='Gulugulugulu1607',
-                     password='gulugulugulu')
+                     user_agent='testscript by u/sentiment')
 #Function to perform the search
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
