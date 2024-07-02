@@ -14,10 +14,10 @@ reddit = praw.Reddit(client_id='yNUqSD_PU1WIs0USLLacCQ',
 #Function to perform the search
 def perform_search(subreddit_name, keyword, sort):
     if subreddit_name == "all":
-        submissions = reddit.subreddit("all").search(keyword,sort=sort,limit=250)
+        submissions = reddit.subreddit("all").search(keyword,sort=sort,limit=200)
     else:
         subreddit = reddit.subreddit(subreddit_name)
-        submissions = subreddit.search(keyword,sort=sort, limit = 250)
+        submissions = subreddit.search(keyword,sort=sort, limit = 200)
     return submissions
 def fetch_submissions(subreddit_name, keyword, sort_types):
     combined_submissions = {}
